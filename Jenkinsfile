@@ -91,7 +91,9 @@ pipeline {
 
             def commit_id = getCommitId()
             docker.withRegistry('https://ghcr.io/ahmedhussiien/flickr-frontend', 'ghcr') {
-              def image = docker.build("ghcr.io/ahmedhussiien/flickr-frontend:${commit_id}", '.').push('latest')
+              def app = docker.build("ghcr.io/ahmedhussiien/flickr-frontend", '.')
+              app.push("${commit_id}")
+              app.push("latest")
             }
 
             def stopTime = new Date()
